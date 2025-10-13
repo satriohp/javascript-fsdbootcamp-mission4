@@ -8,7 +8,7 @@ const priorityColors = {
 };
 
 function renderTodos() {
-    todoContainer.innerHTML() = "";
+    todoContainer.innerHTML = "";
     const now = new Date();
 
     todos.forEach((todo, index) => {
@@ -29,7 +29,7 @@ function renderTodos() {
 
         const text = document.createElement("span");
         text.textContent = `${todo.desc} [${todo.priority}] - ${todo.date}`;
-        text.className = todo.done ? "line-through text-gray-400" : "text-gray-200";
+        text.className = todo.done ? "line-through text-gray-400" : `text-gray-200 ${priorityColors[todo.priority]}`;
     
         const created = new Date(todo.timestamp);
         const diff = (now - created) / (1000 * 60 * 60 * 24); 
@@ -41,7 +41,33 @@ function renderTodos() {
 
         left.appendChild(checkbox);
         left.appendChild(text);
+
+        const btnGroup = document.createElement("div");
+
+        const editBtn = document.createElement("button");
+        editBtn.textContent = "Edit";
+        editBtn.className = "text-yellow-400 hover:text-yellow-500 mr-3 font-semibold";
+        editBtn.onclick = () => {
+          const newText = prompt("Edit todo:", todo.desc);
+          if (newText && newText.trim() !== "") {
+            todo.desc = newText.trim();
+            renderTodos();
+          }
+        };
+
+        const delBtn = document.createElement("button");
+        delBtn.textContent = "Delete";
+        delBtn.className = "text-red-400 hover:text-red-600 font-semibold";
+        delBtn.onclick = () => {
+          todos.splice(index, 1);
+          renderTodos();
+        };
+
+        btnGroup.appendChild(editBtn);
+        btnGroup.appendChild(delBtn);
+
         item.appendChild(left);
+        item.appendChild(btnGroup);
         todoContainer.appendChild(item);
 
     });   
