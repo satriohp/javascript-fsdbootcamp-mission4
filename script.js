@@ -72,5 +72,44 @@ function renderTodos() {
 
     });   
 }
+addBtn.addEventListener("click", () => {
+  const desc = todoInput.value.trim();
+  const priority = prioritySelect.value;
+  if (desc === "") return;
+
+  const now = new Date();
+  const formattedDate = now.toLocaleString("id-ID", {
+    weekday: "short",
+    day: "2-digit",
+    month: "short",
+    year: "numeric",
+    hour: "2-digit",
+    minute: "2-digit"
+  });
+
+  todos.push({
+    desc,
+    priority,
+    done: false,
+    date: formattedDate,
+    timestamp: now
+  });
+
+  todoInput.value = "";
+  renderTodos();
+  todoInput.focus();
+});
+
+todoInput.addEventListener("keypress", (e) => {
+  if (e.key === "Enter") addBtn.click();
+});
+
+deleteAllBtn.addEventListener("click", () => {
+  if (todos.length === 0) return alert("Tidak ada todo untuk dihapus!");
+  if (confirm("Yakin mau hapus semua todo?")) {
+    todos = [];
+    renderTodos();
+  }
+});
 
 renderTodos();
