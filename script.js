@@ -1,14 +1,24 @@
-let todos = [];
-
 const todoInput = document.getElementById("todoInput");
 const addBtn = document.getElementById("addBtn");
 const deleteAllBtn = document.getElementById("deleteAllBtn");
 const todoContainer = document.getElementById("todoContainer");
+const completedContainer = document.createElement("tbody");
 const prioritySelect = document.getElementById("prioritySelect");
-
 const sortContainer = document.createElement("div");
-sortContainer.className = "flex justify-end mb-2";
+const profileImg = document.getElementById("profileLink");
 
+
+profileImg.addEventListener("click", () => {
+  const name = document.getElementById("username").textContent;
+  const role = document.getElementById("userRole").textContent;
+  const photo = profileImg.querySelector("img").src;
+  const regNumber = "REG-" + Math.floor(Math.random() * 1000000);
+
+  localStorage.setItem("userProfile", JSON.stringify({ name, role, photo, regNumber }));
+  window.location.href = "profilePage.html";
+});
+
+sortContainer.className = "flex justify-end mb-2";
 sortContainer.innerHTML = `
   <select id="sortSelect" class="p-2 rounded bg-gray-700 text-white text-sm focus:outline-none focus:ring-2 focus:ring-blue-500">
     <option value="newest">Sort by Newest</option>
@@ -17,13 +27,31 @@ sortContainer.innerHTML = `
     <option value="priority-low">Sort by Low Priority</option>
   </select>
 `;
-
 document.querySelector("table").insertAdjacentElement("beforebegin", sortContainer);
-
 const sortSelect = document.getElementById("sortSelect");
+
+const completedSection = document.createElement("div");
+completedSection.className = "overflow-x-auto rounded-lg mt-8";
+completedSection.innerHTML = `
+  <h2 class="text-xl font-bold mb-3 text-green-400">Done</h2>
+  <table class="w-full text-left border-collapse">
+    <thead>
+      <tr class="bg-gray-700 text-gray-300">
+        <th class="px-4 py-2">#</th>
+        <th class="px-4 py-2">Todo</th>
+        <th class="px-4 py-2">Priority</th>
+        <th class="px-4 py-2">Created</th>
+        <th class="px-4 py-2 text-center">Actions</th>
+      </tr>
+    </thead>
+  </table>
+`;
+completedSection.querySelector("table").appendChild(completedContainer);
+document.querySelector("main .bg-gray-800").appendChild(completedSection);
 
 function renderTodos() {
   todoContainer.innerHTML = "";
+  completedContainer.innerHTML = "";
   const now = new Date();
 
   const sortedTodos = [...todos];
@@ -50,7 +78,6 @@ function renderTodos() {
 
     const todoCell = document.createElement("td");
     todoCell.className = "px-4 py-2 align-middle";
-
     const wrapper = document.createElement("div");
     wrapper.className = "inline-flex items-center gap-2";
 
@@ -117,7 +144,7 @@ function renderTodos() {
     delBtn.className =
       "text-red-400 hover:text-red-500 font-semibold mx-2";
     delBtn.onclick = () => {
-      todos.splice(index, 1);
+      todos.splice(todos.indexOf(todo), 1);
       renderTodos();
     };
 
@@ -130,7 +157,11 @@ function renderTodos() {
     row.appendChild(dateCell);
     row.appendChild(actionsCell);
 
-    todoContainer.appendChild(row);
+    if (todo.done) {
+      completedContainer.appendChild(row);
+    } else {
+      todoContainer.appendChild(row);
+    }
   });
 }
 
