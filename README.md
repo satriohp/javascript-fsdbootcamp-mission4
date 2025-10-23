@@ -7,14 +7,15 @@ This app helps users manage their daily tasks efficiently with a clean, minimali
 
 ## Features
 
-- Add, edit, and delete todos easily  
-- Sort tasks by newest or oldest  
-- Task prioritization (Low / Medium / High)  
-- Overdue detection for missed deadlines  
-- Separate "Done" section for completed tasks  
-- Local storage support — your data stays saved even after refresh  
-- Fully responsive across all devices  
-- Glassmorphism sticky navbar with user profile and role
+- Add, Edit, and Delete Todos — simple and intuitive
+- Sorting Options — sort by newest, oldest, or priority level
+- Priority Levels — categorize tasks by Low / Medium / High
+- Overdue Detection — highlights tasks overdue for more than a day
+- Done Section — separates completed tasks from active ones
+- Profile System — integrated navbar with user info (name, role, avatar)
+- Profile Page — displays user’s name, role, registration number, and avatar dynamically
+- Modern UI — glass effect navbar, responsive layout, and smooth hover animations
+- Fully Responsive — adapts beautifully on mobile, tablet, and desktop
 
 ---
 
