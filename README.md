@@ -25,7 +25,7 @@ This app helps users manage their daily tasks efficiently with a clean, minimali
 |-------------|-------------|
 | **HTML5** | Base structure |
 | **Tailwind CSS** | For responsive styling and modern UI |
-| **JavaScript (Vanilla)** | Logic for task management, sorting, and local storage |
+| **JavaScript (Vanilla)** | Logic for task management and  sorting|
 
 
 
