@@ -49,6 +49,8 @@ completedSection.innerHTML = `
 completedSection.querySelector("table").appendChild(completedContainer);
 document.querySelector("main .bg-gray-800").appendChild(completedSection);
 
+let todos = [];
+
 function renderTodos() {
   todoContainer.innerHTML = "";
   completedContainer.innerHTML = "";
